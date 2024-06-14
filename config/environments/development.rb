@@ -39,9 +39,23 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
-  config.action_mailer.perform_caching = false
+  config.action_mailer.perform_caching = true
+
+  # Setup the mailer config
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.sendgrid.net',
+    port: 587,
+    domain: 'localhost.com',
+    user_name: 'apikey',       # This is the literal username required by SendGrid
+    password:  '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',
+    authentication: 'plain',
+    enable_starttls_auto: true,
+    open_timeout: 30,  # Open connection timeout in seconds
+    read_timeout: 30   # Read timeout in seconds
+  }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
