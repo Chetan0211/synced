@@ -32,6 +32,9 @@ gem "redis", ">= 4.0.1"
 # Use sidekiq for backgroound jobs
 gem "sidekiq"
 
+# Use braintree for payment support
+gem 'braintree'
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 

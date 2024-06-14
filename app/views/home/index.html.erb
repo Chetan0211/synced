@@ -1,4 +1,23 @@
 <h1 class="text-3xl font-bold underline">
     Hello world!
 </h1>
+
+<%= form_for :transaction do |f| %>
+  <%= f.label "Amount" %>
+  <%= f.text_field :amount %>
+  <div id="dropin-container"></div>
+  <%= f.submit "Pay" %>
+<% end %>
+
+<script src="https://js.braintreegateway.com/web/dropin/1.32.0/js/dropin.min.js"></script>
+<script>
+  var form = document.querySelector('#payment-form');
+  var client_token = "<%= Braintree::ClientToken.generate %>";
+
+  braintree.dropin.create({
+    authorization: client_token,
+    container: '#dropin-container'
+  });
+</script>
+
 <%= image_tag("logo.png", alt: "Company Logo") %>
