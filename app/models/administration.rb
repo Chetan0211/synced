@@ -1,5 +1,14 @@
 class Administration < ApplicationRecord
 
+  before_save :downcase_emails
+
+
+  def downcase_emails
+    self.email = email.downcase if email.present?
+    self.email_identifier = email_identifier.downcase if email_identifier.present?
+  end
+
+
   enum status: {
     active: 0,
     inactive: 1,

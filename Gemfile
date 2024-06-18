@@ -48,6 +48,17 @@ gem "devise"
 
 gem "cancancan"
 
+gem 'htmlbeautifier'
+
+# Use trailblazer for code re-usability
+gem 'trailblazer'
+gem "trailblazer-rails"
+# gem "trailblazer-cells"
+gem "reform"
+gem "reform-rails"
+gem "dry-types"
+gem "dry-validation"
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 

@@ -1,6 +1,15 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  
+  before_save :downcase_emails
+
+
+  def downcase_emails
+    self.email = email.downcase if email.present?
+    self.personal_email = personal_email.downcase if personal_email.present?
+  end
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :lockable, :timeoutable, :trackable
