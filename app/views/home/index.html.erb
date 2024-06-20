@@ -1,26 +1,122 @@
-<h1 class="text-3xl font-bold underline">
-    Hello world!
-</h1>
-
-<%= link_to "Click me", new_signing_path %>
-
-
-<%= form_for :transaction do |f| %>
-  <%= f.label "Amount" %>
-  <%= f.text_field :amount %>
-  <div id="dropin-container"></div>
-  <%= f.submit "Pay" %>
-<% end %>
-
-<script src="https://js.braintreegateway.com/web/dropin/1.32.0/js/dropin.min.js"></script>
-<script>
-  var form = document.querySelector('#payment-form');
-  var client_token = "<%= Braintree::ClientToken.generate %>";
-
-  braintree.dropin.create({
-    authorization: client_token,
-    container: '#dropin-container'
-  });
-</script>
-
-<%= image_tag("logo.png", alt: "Company Logo") %>
+<div class="mx-auto w-full relative">
+  <%= image_tag("home_main_image.jpg", alt: "Company Logo", class: "w-full backdrop-gray") %>
+  <div class="absolute inset-0 bg-black opacity-75"></div>
+  <div class="absolute inset-0 flex flex-col items-center lg:items-top lg:mt-52 text-white text-center px-5 lg:px-0">
+    <h1 class="font-bold text-4xl lg:text-6xl">Bridging the Gap Between Teachers and Students</h1>
+    <p class="text-base lg:text-lg my-5">Empowering educational institutions with seamless communication and collaboration tools. Join us to enhance learning and teaching experiences.</p>
+    <div class="flex flex-col lg:flex-row justify-center lg:justify-start">
+      <%= link_to "Sign up", new_signing_path, class: "text-sm text-decoration-none justify-center py-2 px-4 lg:py-3 lg:px-6 h-10 lg:h-12 w-full lg:w-auto lg:mr-3 text-center shadow-sm font-medium text-white bg-primary-color-default hover:bg-primary-color-400 flex items-center" %>
+      <%= link_to "Log in", new_signing_path, class: "text-sm text-decoration-none justify-center py-2 px-4 lg:py-3 lg:px-6 h-10 lg:h-12 w-full lg:w-auto text-center shadow-sm font-medium text-white bg-primary-color-default hover:bg-primary-color-400 flex items-center lg:ml-3" %>
+    </div>
+  </div>
+</div>
+<section id="features" class="py-14 px-5 bg-white" >
+  <h2 class="text-center text-gray-800">Why Choose Our Platform?</h2>
+  <div class="flex justify-around mt-5">
+    <div class="flex-1 mx-0 text-center rounded flex flex-col shadow-md">
+      <%= image_tag("real_time_messaging.jpg", alt: "Company Logo", class: "w-full h-auto rounded-t-md") %>
+      <div class="bg-gray-100 px-2 pb-2 pt-3 rounded-b-md flex-1">
+        <h3 class="text-ff5758">Real-time Messaging</h3>
+        <p>Instant communication between teachers and students, making it easy to ask questions and get answers quickly.</p>
+      </div>
+    </div>
+    <div class="flex-1 mx-2 text-center rounded flex flex-col shadow-md">
+      <%= image_tag("assessment_management.jpg", alt: "Company Logo", class: "w-full h-auto rounded-t-md") %>
+      <div class="bg-gray-100 px-2 pb-2 pt-3 rounded-b-md flex-1">
+        <h3 class="text-ff5758">Assignment Management</h3>
+        <p>Easily assign, track, and submit homework and projects with our integrated tools.</p>
+      </div>
+    </div>
+    <div class="flex-1 mx-2 text-center rounded flex flex-col shadow-md">
+      <%= image_tag("progress_tracking.jpg", alt: "Company Logo", class: "w-full h-auto rounded-t-md") %>
+      <div class="bg-gray-100 px-2 pb-2 pt-3 rounded-b-md flex-1">
+        <h3 class="text-ff5758">Progress Tracking</h3>
+        <p>Monitor student performance and provide timely feedback to ensure continuous improvement.</p>
+      </div>
+    </div>
+    <div class="flex-1 mx-2 text-center rounded flex flex-col shadow-md">
+      <%= image_tag("resource_sharing.jpg", alt: "Company Logo", class: "w-full h-auto rounded-t-md") %>
+      <div class="bg-gray-100 px-2 pb-2 pt-3 rounded-b-md flex-1">
+        <h3 class="text-ff5758">Resource Sharing</h3>
+        <p>Share study materials, notes, and other resources efficiently within your educational community.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="pricing" class="py-14 px-5 bg-white">
+  <h2 class="text-center text-gray-800">Pricing Plans</h2>
+  <p class="text-center text-gray-600">Choose the plan that best fits your institution's needs. Flexible options for every type of user.</p>
+  <div class="flex flex-wrap justify-around mt-10 space-y-6 md:space-y-0">
+    <!-- Basic Plan -->
+    <div class="flex-1 max-w-sm mx-4 my-2 text-center border border-gray-200 p-6 rounded-lg shadow-lg flex flex-col justify-between">
+      <div>
+        <h3 class="text-red-500 text-4xl font-semibold">Basic</h3>
+        <p class="text-2xl text-gray-800 mt-2 mb-4">$29/mo</p>
+        <ol class="list-disc px-5 space-y-5 text-start mx-auto align-center text-gray-600">
+          <li>Up to 100 Students</li>
+          <li>Up to 7 Teachers</li>
+          <li>500 GB Storage</li>
+          <li>Additional Storage: $5/GB</li>
+          <li>Basic Messaging</li>
+          <li>Assignment Management</li>
+        </ol>
+      </div>
+      <button class="bg-primary-color-default text-white px-5 py-2 mt-6 rounded hover:bg-primary-color-400">Get Started</button>
+    </div>
+    <!-- Organization Plan -->
+    <div class="flex-1 max-w-sm mx-4 my-2 text-center border border-gray-200 p-6 rounded-lg shadow-lg flex flex-col justify-between">
+      <div>
+        <h3 class="text-red-500 text-4xl font-semibold">Organization</h3>
+        <p class="text-2xl text-gray-800 mt-2 mb-4">$199/mo</p>
+        <ol class="list-disc px-5 space-y-5 text-start mx-auto align-center text-gray-600">
+          <li>Up to 1000 Students</li>
+          <li>Up to 60 Teachers</li>
+          <li>1 TB Storage</li>
+          <li>Additional Storage: $3/GB</li>
+          <li>Enhanced Messaging</li>
+          <li>Advanced Assignment Management</li>
+          <li>Progress Tracking</li>
+          <li>Resource Sharing</li>
+        </ol>
+      </div>
+      <button class="bg-primary-color-default text-white px-5 py-2 mt-6 rounded hover:bg-primary-color-400">Get Started</button>
+    </div>
+    <!-- Custom Plan -->
+    <div class="flex-1 max-w-sm mx-4 my-2 text-center border border-gray-200 p-6 rounded-lg shadow-lg flex flex-col justify-between">
+      <div>
+        <h3 class="text-red-500 text-4xl font-semibold">Custom</h3>
+        <p class="text-2xl text-gray-800 mt-2 mb-4">Contact Us</p>
+        <ol class="list-disc px-5 space-y-5 text-start mx-auto align-center text-gray-600">
+          <li>Unlimited Students</li>
+          <li>Custom Number of Teachers</li>
+          <li>Custom Storage Solutions</li>
+          <li>Custom Messaging Solutions</li>
+          <li>Comprehensive Assignment Management</li>
+          <li>Extensive Storage</li>
+          <li>Detailed Progress Tracking</li>
+          <li>Advanced Resource Sharing</li>
+          <li>Dedicated Support</li>
+        </ol>
+      </div>
+      <button class="bg-primary-color-default text-white px-5 py-2 mt-6 rounded hover:bg-primary-color-400">Contact Us</button>
+    </div>
+  </div>
+</section>
+<section id="about" class="py-12 px-5 bg-white">
+  <h2 class="text-center text-gray-800">About Us</h2>
+  <p class="text-center text-gray-600 mt-4">
+    Our mission is to enhance educational experiences by providing cutting-edge tools that foster communication, collaboration, and continuous improvement in the academic community. Our team is dedicated to developing innovative solutions that meet the unique needs of teachers and students alike.
+  </p>
+</section>
+<footer class="py-5 bg-gray-800 text-white text-center">
+  <ul class="list-none p-0">
+    <li class="inline mx-2"><a href="#privacy" class="text-white no-underline hover:underline">Privacy Policy</a></li>
+    <li class="inline mx-2"><a href="#terms" class="text-white no-underline hover:underline">Terms of Service</a></li>
+  </ul>
+  <p>Contact us: email@example.com | +123 456 7890</p>
+  <form id="newsletter" class="mt-5">
+    <label for="email" class="block mb-2">Subscribe to our newsletter</label>
+    <input type="email" id="email" name="email" placeholder="Enter your email" class="px-3 py-2 mr-3">
+    <button type="submit" class="px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">Subscribe</button>
+  </form>
+</footer>

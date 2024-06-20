@@ -11,10 +11,23 @@ module.exports = {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },
+      zIndex: {
+        '-1': '-1',
+        '-2': '-2',
+      },
       colors: {
         'primary-color': {
-          600: '#ff5758', // This is a primary color
-          700: '#f74344' // This is used for button hover
+          'default': '#ff5758', // This is a primary color
+          50: '#ffe5e5',
+          100: '#ffcccc',
+          200: '#ff999a',
+          300: '#ff6667',
+          400: '#ff3334',
+          500: '#ff0001',
+          600: '#e60000',
+          700: '#cc0000',
+          800: '#b30000',
+          900: '#990000',
         }
       }
     },
