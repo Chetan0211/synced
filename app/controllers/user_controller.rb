@@ -1,4 +1,4 @@
-class SigningController < ApplicationController
+class UserController < ApplicationController
   def new
     @user_data = flash.now[:user_data] || {}
     @errors = flash.now[:errors] || {}

@@ -14,7 +14,5 @@ class HomeController < ApplicationController
     #   # Handle failed transaction
     # end 
     
-    jwt_token = JsonWebToken.encode(user_id: "akjansdjanjas")
-    debugger
   end
 end

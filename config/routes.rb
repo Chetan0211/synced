@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
 
-  resources :signing, except: [:index]
+  resources :user, except: [:index]
 
   # Defines the root path route ("/")
   root "home#index"
