@@ -35,6 +35,8 @@ gem "sidekiq"
 # Use braintree for payment support
 gem 'braintree'
 
+gem "jwt"
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
