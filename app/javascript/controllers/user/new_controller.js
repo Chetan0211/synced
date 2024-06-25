@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="signing--new"
+// Connects to data-controller="user--new"
 export default class extends Controller {
   connect() {
     let password_button = document.getElementById('password_view');

@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
 
   resources :user, except: [:index]
+  resources :session, only: [:new, :create]
+
+  get "log_out" => "session#log_out", as: :session_log_out
 
   # Defines the root path route ("/")
   root "home#index"

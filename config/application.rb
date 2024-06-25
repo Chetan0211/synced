@@ -17,6 +17,8 @@ module Synced
     # Use Sidekiq for Active Job
     config.active_job.queue_adapter = :sidekiq
 
+    config.session_store :cookie_store, key: '_synced_session'
+
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
