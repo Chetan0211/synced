@@ -19,6 +19,8 @@ module Synced
 
     config.session_store :cookie_store, key: '_synced_session'
 
+    Rails.application.config.paths['app/views'] << Rails.root.join('app/components')
+
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.

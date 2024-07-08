@@ -9,7 +9,13 @@ class SessionController < ApplicationController
     @errors = {}
     session_status = Session::Create.call(login_user: session_params, session: session)
     if session_status.success?
-      redirect_to root_path
+      if session_status[:user].admin?
+        redirect_to admin_dashboard_path
+      elsif session_status[:user].teacher?
+        redirect_to teacher_dashboard_path
+      elsif session_status[:user].student?
+        redirect_to student_dashboard_path
+      end
     else
       flash.now[:user_data] = @login_data
       flash.now[:errors] = @errors = session_status[:model].errors

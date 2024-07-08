@@ -14,10 +14,15 @@
     <header class="flex bg-white px-4 h-16 border-b-2 border-gray-200 shadow-sm items-center sticky top-0 z-2">
       <%= link_to image_tag("logo.png", alt: "Company Logo", class: "flex h-14 w-auto"), root_path, class: "flex h-14 w-auto" %>
       <div class="flex-auto items-end space-x-1 ml-10">
-        <a href="#" class="rounded-md px-2 py-2 text-lg font-medium text-decoration-none text-gray-600 hover:text-primary-color-default ">Home</a>
-        <a href="#features" class="rounded-md px-2 py-2 text-lg font-medium text-decoration-none text-gray-600 hover:text-primary-color-default ">Features</a>
-        <a href="#pricing" class="rounded-md px-2 py-2 text-lg font-medium text-decoration-none text-gray-600 hover:text-primary-color-default ">Pricing</a>
-        <a href="#about" class="rounded-md px-2 py-2 text-lg font-medium text-decoration-none text-gray-600 hover:text-primary-color-default ">About Us</a>
+        <% if current_user.present? && current_user.user_type == "admin" %>
+          <%= render "header/header_admin" %>
+        <% elsif current_user.present? && current_user.user_type == "teacher" %>
+          <%= render "header/header_teacher" %>
+        <% elsif current_user.present? && current_user.user_type == "student" %>
+          <%= render "header/header_student" %>
+        <% else %>
+          <%= render "header/header_general" %>
+        <% end %>
       </div>
       <% unless session[:session_token].present? %>
         <div class="flex right-10">

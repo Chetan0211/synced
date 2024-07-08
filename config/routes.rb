@@ -14,6 +14,20 @@ Rails.application.routes.draw do
 
   get "log_out" => "session#log_out", as: :session_log_out
 
+  namespace :admin do
+    get "dashboard" => "dashboard#index", as: :dashboard
+    resources :students, only: [:index]
+  end
+
+  namespace :student do
+    get "dashboard" => "dashboard#index", as: :dashboard
+    resources :signup, only: [:new, :create]
+  end
+
+  namespace :teacher do
+    get "dashboard" => "dashboard#index", as: :dashboard
+  end
+
   # Defines the root path route ("/")
   root "home#index"
 end

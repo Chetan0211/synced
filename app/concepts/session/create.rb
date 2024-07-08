@@ -13,6 +13,8 @@ class Session::Create < Trailblazer::Operation
 
   def create_session(results, session:, **)
     user = User.find_by(email: results[:model].email)
+    results[:user] = user
+    session[:user_id] = user.id
     session[:session_token] = JsonWebToken.encode(
       user_id: user.id, 
       name: user.first_name + " " + user.last_name,

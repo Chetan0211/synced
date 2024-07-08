@@ -1,0 +1,5 @@
+<h1>All Students list go here</h1>
+<% @students&.each do |student| %>
+  <%= render partial:"student", locals: { student: student } %>
+<% end %>
+<%= link_to "Sign Up", new_student_signup_path %>
