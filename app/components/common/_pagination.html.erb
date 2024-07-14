@@ -1,0 +1,76 @@
+<!--
+
+varibables that this template needs:
+
+@page: Current page user is in
+@pages: Total number of pages
+total_count: total number of items present
+@redirect_path: path to redirect to when a page is clicked
+
+-->
+<div class="border-t border-gray-200 bg-white px-4 py-3 sm:px-6 w-full">
+  <%# <div class="flex flex-1 justify-between sm:hidden">
+    <a href="#" class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Previous</a>
+    <a href="#" class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Next</a>
+  </div> %>
+  <div class="flex justify-between items-center">
+    <p class="text-sm text-gray-700 my-auto">
+      Showing
+      <span class="font-medium"><%= ((@page-1) * 10)+1 %></span>
+      to
+      <span class="font-medium"><%= (@page * 10)>total_count ? total_count : @page * 10 %></span>
+      of
+      <span class="font-medium"><%= total_count %></span>
+      results
+    </p>
+    <div class="flex">
+      <nav class="flex">
+        <%= link_to @redirect_path.call(page: @page<1 ? 1 : @page), class:"relative inline-flex no-underline items-center px-2 py-2 text-sm rounded-l-md font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0" do%>
+          <i class="fa-solid fa-chevron-left text-primary-color-default h-4 w-4"></i>
+        <% end %>
+        <% (1..(@pages>3 ? 3: @pages)).each do |page| %>
+          <% if @page == page %>
+            <span class="relative z-10 m-0 inline-flex items-center bg-primary-color-default px-3 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-color-default"><%=page%></span>
+          <% else %>
+            <%= link_to page, @redirect_path.call(page: page), class:"relative m-0 inline-flex no-underline items-center px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0" %>
+          <% end %>
+        <% end %>
+        <% if @pages > 6 %>
+          <span class="relative inline-flex items-center px-3 py-2 text-sm font-semibold text-gray-700 ring-1 ring-inset ring-gray-300 focus:outline-offset-0">...</span>
+          <% if @page >= 3 && @page <= (@pages - 2)%>
+            <% between = [] %>
+            <%if @page != 3 && @page-1 != 3 %>
+              <% between << @page-1 %>
+            <% end %>
+            <%if @page > 3 && @page < (@pages - 2)%>
+              <% between << @page %>
+            <% end %>
+            <%if @page != (@pages - 2) && @page+1 != (@pages - 2)%>
+              <% between << @page+1 %>
+            <% end %>
+            <% between.each do |page| %>
+              <% if @page == page %>
+                <span class="relative z-10 inline-flex items-center bg-primary-color-default px-3 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-color-default"><%=page%></span>
+              <% else %>
+                <%= link_to page, @redirect_path.call(page: page), class:"relative inline-flex no-underline items-center px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0" %>
+              <% end %>
+            <% end %>
+            <span class="relative inline-flex items-center px-3 py-2 text-sm font-semibold text-gray-700 ring-1 ring-inset ring-gray-300 focus:outline-offset-0">...</span>
+          <% end %>
+        <% end %>
+        <% if @pages > 3 %>
+          <% ((@pages - 2)..@pages).each do |page| %>
+            <% if @page == page %>
+              <span class="relative z-10 inline-flex items-center bg-primary-color-default px-3 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-color-default"><%=page%></span>
+            <% else %>
+              <%= link_to page, @redirect_path.call(page: page), class:"relative inline-flex no-underline items-center px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0" %>
+            <% end %>
+          <% end %>
+        <% end %>
+        <%= link_to @redirect_path.call(page: @page+1>@pages ? @pages : @page+1), class:"relative inline-flex no-underline items-center px-2 py-2 text-sm rounded-r-md font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0" do%>
+          <i class="fa-solid fa-chevron-right text-primary-color-default h-4 w-4"></i>
+        <% end %>
+      </nav>
+    </div>
+  </div>
+</div>

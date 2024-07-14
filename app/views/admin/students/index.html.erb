@@ -1,5 +1,25 @@
-<h1>All Students list go here</h1>
-<% @students&.each do |student| %>
-  <%= render partial:"student", locals: { student: student } %>
-<% end %>
-<%= link_to "Sign Up", new_student_signup_path %>
+<div class="flex justify-between items-center mx-4 align-middle ">
+  <h1>All Students</h1>
+  <%= link_to "New Student", new_student_signup_path, class:"text-white font-bold bg-primary-color-default no-underline py-2 px-4 rounded" %>
+</div>
+<div class="bg-white shadow-md rounded my-6 mx-4">
+  <table class="min-w-full bg-white rounded">
+    <thead>
+      <tr>
+        <th class="w-1/6 py-2 px-4 bg-primary-color-300 rounded-tl font-bold uppercase text-sm text-white text-left">Email</th>
+        <th class="w-1/6 py-2 px-4 bg-primary-color-300 font-bold uppercase text-sm text-white text-left">First Name</th>
+        <th class="w-1/6 py-2 px-4 bg-primary-color-300 font-bold uppercase text-sm text-white text-left">Last Name</th>
+        <th class="w-1/6 py-2 px-4 bg-primary-color-300 font-bold uppercase text-sm text-white text-left">Created At</th>
+        <th class="w-1/6 py-2 px-4 bg-primary-color-300 font-bold uppercase text-sm text-white text-left">Status</th>
+        <th class="w-1/6 py-2 px-4 bg-primary-color-300 rounded-tr font-bold uppercase text-sm text-white text-left">Actions</th>
+      </tr>
+    </thead>
+    <tbody class="text-gray-700">
+      <% @students&.each do |student| %>
+        <%= render partial:"student", locals: { student: student } %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<!-- Pagination -->
+<%= render partial:"common/pagination", locals:{total_count: @total_students.count} %>
