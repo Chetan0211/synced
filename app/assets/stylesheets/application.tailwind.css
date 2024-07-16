@@ -8,6 +8,21 @@
   .btn-primary {
     @apply py-2 px-4 bg-blue-200;
   }
+  .dropdown-menu{
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.1s ease-out, transform 0.1s ease-out;
+  }
+  .dropdown-menu.show {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 0.1s ease-out, transform 0.1s ease-out;
+  }
+  .dropdown-menu.hide {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.075s ease-in, transform 0.075s ease-in;
+  }
 }
 
 

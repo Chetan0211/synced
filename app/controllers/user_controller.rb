@@ -2,10 +2,12 @@ class UserController < ApplicationController
   def new
     @user_data = flash.now[:user_data] || {}
     @errors = flash.now[:errors] || {}
+    @path = method(:user_index_path)
   end
 
   def create
-    @user_data = params[:signing_user] || {}  # Ensure @user_data is always a hash
+    @path = method(:user_index_path)
+    @user_data = params[:user] || {}  # Ensure @user_data is always a hash
     @errors = {}
     user = user_params
     administration = administration_params
@@ -14,6 +16,7 @@ class UserController < ApplicationController
     result = Signing::Create.call(user: user, administration: administration)
     if result.success?
       # Do something on success
+      redirect_to session_index_path # temporary solution
     else
       flash.now[:user_data] = @user_data
       flash.now[:errors] = @errors = result['contract.default'].errors
@@ -36,7 +39,7 @@ class UserController < ApplicationController
   private
 
   def user_params
-    params.require(:signing_user).permit(:first_name, :last_name, :personal_email, :email, :password, :confirm_password)
+    params.require(:user).permit(:first_name, :last_name, :personal_email, :email, :password, :confirm_password)
     
   end
 
@@ -45,7 +48,7 @@ class UserController < ApplicationController
   end
 
   def administration_params
-    original_params = params.require(:signing_user).permit(:name, :email_identifier, :personal_email)
+    original_params = params.require(:user).permit(:name, :email_identifier, :personal_email)
     transform_params(original_params, { personal_email: :email })
   end
 end

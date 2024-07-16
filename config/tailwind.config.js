@@ -15,6 +15,9 @@ module.exports = {
         '-1': '-1',
         '-2': '-2',
       },
+      height: {
+        '80vh': '80vh',
+      },
       colors: {
         'primary-color': {
           'default': '#ff5758', // This is a primary color

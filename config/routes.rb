@@ -17,6 +17,11 @@ Rails.application.routes.draw do
   namespace :admin do
     get "dashboard" => "dashboard#index", as: :dashboard
     resources :students, only: [:index]
+    resources :teachers, only: [:index] do
+      collection do
+        get "sort" => "teachers#sort", as: :sort
+      end
+    end
   end
 
   namespace :student do
@@ -26,6 +31,7 @@ Rails.application.routes.draw do
 
   namespace :teacher do
     get "dashboard" => "dashboard#index", as: :dashboard
+    resources :signup, only: [:new, :create]
   end
 
   # Defines the root path route ("/")

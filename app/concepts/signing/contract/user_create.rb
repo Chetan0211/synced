@@ -29,7 +29,7 @@ class Signing::Contract::UserCreate < ApplicationContract
     user_contract.confirm_password = confirm_password
     unless user_contract.validate(key: :user)
       user_contract.errors.each do |field, error|
-        errors.add("user_#{field.attribute}", field.options[:message])
+        errors.add(field.attribute, field.options[:message])
       end
     end
   end
@@ -39,7 +39,7 @@ class Signing::Contract::UserCreate < ApplicationContract
     admin_contract = Administration::Contract::Create.new(administration_instance)
     unless admin_contract.validate(key: :administration)
       admin_contract.errors.each do |field, error|
-        errors.add("administration_#{field.attribute}", field.options[:message])
+        errors.add(field.attribute, field.options[:message])
       end
     end
   end

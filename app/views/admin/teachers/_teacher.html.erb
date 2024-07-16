@@ -1,0 +1,12 @@
+<%= link_to new_teacher_signup_path do %>
+  <tr class="border-t border-gray-200 hover:bg-gray-100">
+    <td class="py-3 px-4"><%= link_to teacher.email, "#", class:"no-underline" %></td>
+    <td class="py-3 px-4"><%= teacher.first_name %></td>
+    <td class="py-3 px-4"><%= teacher.last_name %></td>
+    <td class="py-3 px-4"><%= teacher.created_at.strftime("%B %d, %Y") %></td>
+    <td class="py-3 px-4"><%= teacher.status %></td>
+    <td class="py-3 px-4">
+      <%= link_to "Edit", "#", class: "text-primary-color-default py-2 px-4 no-underline" %>
+    </td>
+  </tr>
+<% end %>
