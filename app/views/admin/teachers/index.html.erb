@@ -41,18 +41,64 @@
     <table class="min-w-full bg-white rounded">
       <thead>
         <tr>
-          <th class="w-1/6 py-2 px-4 bg-primary-color-300 rounded-tl font-bold uppercase text-sm text-white text-left">Email <%= link_to sort_admin_teachers_path(sort:"email", direction: toggle_direction('email')),remote: true, class:"ml-3" do%><i class="fa-solid fa-chevron-up text-white hover:!text-gray-200 h-4 w-4"></i><% end %></th>
-          <th class="w-1/6 py-2 px-4 bg-primary-color-300 font-bold uppercase text-sm text-white text-left">First Name <%= link_to sort_admin_teachers_path(sort:"first_name", direction: toggle_direction('first_name')), remote: true, class:"ml-3" do%><i class="fa-solid fa-chevron-up text-white hover:!text-gray-200 h-4 w-4"></i><% end %></th>
-          <th class="w-1/6 py-2 px-4 bg-primary-color-300 font-bold uppercase text-sm text-white text-left">Last Name <%= link_to sort_admin_teachers_path(sort:"last_name", direction: toggle_direction('last_name')), remote: true, class:"ml-3" do%><i class="fa-solid fa-chevron-up text-white hover:!text-gray-200 h-4 w-4"></i><% end %></th>
-          <th class="w-1/6 py-2 px-4 bg-primary-color-300 font-bold uppercase text-sm text-white text-left">Created At <%= link_to sort_admin_teachers_path(sort:"created_at", direction: toggle_direction('created_at')), remote: true, class:"ml-3" do%><i class="fa-solid fa-chevron-up text-white hover:!text-gray-200 h-4 w-4"></i><% end %></th>
+          <th class="w-1/6 py-2 px-4 bg-primary-color-300 rounded-tl font-bold uppercase text-sm text-white text-left">Email 
+            <%= link_to sort_admin_teachers_path,
+                        data: {
+                          sort: "email",
+                          direction: "desc",
+                          controller: "admin--teachers--index", 
+                          action: "click->admin--teachers--index#sortTable" 
+                        },
+                        remote: true, 
+                        class:"ml-3 sort" do%>
+              <i class="fa-solid fa-chevron-up text-white hover:!text-gray-200 h-4 w-4"></i>
+            <% end %>
+          </th>
+          <th class="w-1/6 py-2 px-4 bg-primary-color-300 font-bold uppercase text-sm text-white text-left">First Name 
+            <%= link_to sort_admin_teachers_path,
+                        data: {
+                          sort: "first_name",
+                          direction: "desc",
+                          controller: "admin--teachers--index", 
+                          action: "click->admin--teachers--index#sortTable" 
+                        },
+                        remote: true, 
+                        class:"ml-3 sort" do%>
+              <i class="fa-solid fa-chevron-up text-white hover:!text-gray-200 h-4 w-4"></i>
+            <% end %>
+          </th>
+          <th class="w-1/6 py-2 px-4 bg-primary-color-300 font-bold uppercase text-sm text-white text-left">Last Name 
+            <%= link_to sort_admin_teachers_path,
+                        data: {
+                          sort: "last_name",
+                          direction: "desc",
+                          controller: "admin--teachers--index", 
+                          action: "click->admin--teachers--index#sortTable" 
+                        },
+                        remote: true, 
+                        class:"ml-3 sort" do%>
+              <i class="fa-solid fa-chevron-up text-white hover:!text-gray-200 h-4 w-4"></i>
+            <% end %>
+          </th>
+          <th class="w-1/6 py-2 px-4 bg-primary-color-300 font-bold uppercase text-sm text-white text-left">Created At 
+            <%= link_to sort_admin_teachers_path,
+                        data: {
+                          sort: "created_at",
+                          direction: "desc",
+                          controller: "admin--teachers--index", 
+                          action: "click->admin--teachers--index#sortTable" 
+                        }, 
+                        remote: true, 
+                        class:"ml-3 sort" do%>
+              <i class="fa-solid fa-chevron-up text-white hover:!text-gray-200 h-4 w-4"></i>
+            <% end %>
+          </th>
           <th class="w-1/6 py-2 px-4 bg-primary-color-300 font-bold uppercase text-sm text-white text-left">Status</th>
           <th class="w-1/6 py-2 px-4 bg-primary-color-300 rounded-tr font-bold uppercase text-sm text-white text-left">Actions</th>
         </tr>
       </thead>
       <tbody class="text-gray-700" id="table_body">
-        <% @teachers&.each do |teacher| %>
-          <%= render partial:"teacher", locals: { teacher: teacher } %>
-        <% end %>
+        <%= render partial:"teacher", collection: @teachers %>
       </tbody>
     </table>
   </div>

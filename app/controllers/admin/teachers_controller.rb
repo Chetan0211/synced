@@ -1,4 +1,5 @@
 class Admin::TeachersController < ApplicationController
+  #protect_from_forgery except: :sort
   def index
     @page = (params[:page] || 1).to_i
     @page = @page<1? 1 : @page
@@ -11,7 +12,7 @@ class Admin::TeachersController < ApplicationController
   def sort
     @total_teachers = User.order(sort_column + ' ' + sort_direction).where(administration_id: current_user.administration_id, user_type: "teacher")
     respond_to do |format|
-      format.js
+      format.html { render partial: 'teacher', collection: @total_teachers }
     end
   end
 
