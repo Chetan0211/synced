@@ -3,20 +3,43 @@ class Admin::TeachersController < ApplicationController
   def index
     @page = (params[:page] || 1).to_i
     @page = @page<1? 1 : @page
-    @total_teachers = User.where(administration_id: current_user.administration_id, user_type: "teacher")
+    @total_teachers = teachers(params)
     @pages = (@total_teachers.count/Float(10)).ceil
     @teachers = @total_teachers.offset((@page-1)*10).limit(10)
     @redirect_path = method(:admin_teachers_path)
-  end
-
-  def sort
-    @total_teachers = User.order(sort_column + ' ' + sort_direction).where(administration_id: current_user.administration_id, user_type: "teacher")
-    respond_to do |format|
-      format.html { render partial: 'teacher', collection: @total_teachers }
+    if request.xhr?
+      teachers_html = render_to_string(partial: 'admin/teachers/teacher', collection: @teachers)
+      pagination_html = render_to_string partial: 'common/pagination', locals:{total_count: @total_teachers.count}
+      respond_to do |format|
+        format.json do
+          render json: { teachers: teachers_html, pagination: pagination_html}
+        end
+      end
     end
   end
 
+  def sort(teachers)
+    if params[:sort].present? && params[:direction].present?
+      teachers = teachers.order(sort_column + ' ' + sort_direction)
+    end
+    return teachers
+  end
+
   private
+
+  def teachers(params)
+    teachers = User.where(administration_id: current_user.administration_id, user_type: "teacher")
+    if params[:start_date].present? && params[:end_date].present?
+      teachers = teachers.where(created_at: DateTime.parse(params[:start_date])..DateTime.parse(params[:end_date]))
+    end
+    if params[:status].present?
+      teachers = teachers.where(status: JSON.parse(params[:status]))
+    end
+    if params[:search_text].present?
+      teachers = teachers.where("first_name ILIKE :search OR last_name ILIKE :search OR email ILIKE :search", search: "%#{params[:search_text]}%")
+    end
+    return sort(teachers)
+  end
 
   def sort_column
     %w[email first_name last_name created_at].include?(params[:sort]) ? params[:sort] : 'created_at'

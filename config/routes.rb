@@ -17,11 +17,7 @@ Rails.application.routes.draw do
   namespace :admin do
     get "dashboard" => "dashboard#index", as: :dashboard
     resources :students, only: [:index]
-    resources :teachers, only: [:index] do
-      collection do
-        get "sort" => "teachers#sort", as: :sort
-      end
-    end
+    resources :teachers, only: [:index]
   end
 
   namespace :student do
