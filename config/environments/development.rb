@@ -20,12 +20,24 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   # Enable/disable caching. By default caching is disabled.
+  config.action_controller.perform_caching = true
   # Run rails dev:cache to toggle caching.
   if Rails.root.join("tmp/caching-dev.txt").exist?
     config.action_controller.perform_caching = true
     config.action_controller.enable_fragment_cache_logging = true
 
-    config.cache_store = :memory_store
+    config.cache_store = :redis_cache_store, { url: "redis://localhost:6379/0",
+
+    connect_timeout:    30,  # Defaults to 1 second
+    read_timeout:       0.2, # Defaults to 1 second
+    write_timeout:      0.2, # Defaults to 1 second
+    reconnect_attempts: 2,   # Defaults to 1
+  
+    error_handler: -> (method:, returning:, exception:) {
+      # Report errors from here
+      
+    }
+  }
     config.public_file_server.headers = {
       "Cache-Control" => "public, max-age=#{2.days.to_i}"
     }

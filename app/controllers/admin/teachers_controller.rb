@@ -28,7 +28,9 @@ class Admin::TeachersController < ApplicationController
   private
 
   def teachers(params)
-    teachers = User.where(administration_id: current_user.administration_id, user_type: "teacher")
+    teachers = Rails.cache.fetch("teacher_cache_#{current_user.administration_id}") do 
+      User.teachers(current_user)
+    end
     if params[:start_date].present? && params[:end_date].present?
       teachers = teachers.where(created_at: DateTime.parse(params[:start_date])..DateTime.parse(params[:end_date]))
     end
