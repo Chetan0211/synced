@@ -4,8 +4,7 @@ class Admin::TeachersController < ApplicationController
     @page = (params[:page] || 1).to_i
     @page = @page<1? 1 : @page
     @total_teachers = teachers(params)
-    @pages = (@total_teachers.count/Float(10)).ceil
-    @teachers = @total_teachers.offset((@page-1)*10).limit(10)
+    @pages, @teachers =  Pagination.new(@total_teachers, @page-1).values
     @redirect_path = method(:admin_teachers_path)
     if request.xhr?
       teachers_html = render_to_string(partial: 'admin/teachers/teacher', collection: @teachers)
@@ -19,16 +18,13 @@ class Admin::TeachersController < ApplicationController
   end
 
   def sort(teachers)
-    if params[:sort].present? && params[:direction].present?
-      teachers = teachers.order(sort_column + ' ' + sort_direction)
-    end
-    return teachers
+    teachers.order(sort_column + ' ' + sort_direction)
   end
 
   private
 
   def teachers(params)
-    teachers = Rails.cache.fetch("teacher_cache_#{current_user.administration_id}") do 
+    teachers = Rails.cache.fetch("teacher_cache_#{@current_user.administration_id}") do 
       User.teachers(current_user)
     end
     if params[:start_date].present? && params[:end_date].present?
