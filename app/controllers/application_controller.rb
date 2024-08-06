@@ -3,8 +3,8 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @current_user = User.find_by(id: session[:user_id]) if session[:user_id].present?
-    unless @current_user
-      redirect_to sign_in_path
-    end
+    # unless @current_user 
+    #   redirect_to root_path
+    # end
   end
 end

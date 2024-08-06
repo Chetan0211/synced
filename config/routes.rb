@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 
   namespace :teacher do
     get "dashboard" => "dashboard#index", as: :dashboard
+    resources :chat, only: [:index, :create]
     resources :signup, only: [:new, :create]
   end
 
