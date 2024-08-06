@@ -1,6 +1,7 @@
 class Admin::DashboardController < ApplicationController
   
   before_action :set_administration
+  before_action :authenticate_user
   before_action ->{authorize! :manage, @administration}
   def index
   end

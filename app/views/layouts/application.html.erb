@@ -12,7 +12,7 @@
   </head>
   <body>
     <header class="flex bg-white px-4 h-16 border-b-2 border-gray-200 shadow-sm items-center sticky top-0 z-2">
-      <%= link_to image_tag("logo.png", alt: "Company Logo", class: "flex h-14 w-auto"), root_path, class: "flex h-14 w-auto" %>
+      <%= link_to image_tag("logo.png", alt: "Company Logo", class: "flex h-14 w-auto"), @logo_redirect.call(), class: "flex h-14 w-auto" %>
       <div class="flex-auto items-end space-x-1 ml-10">
         <% if current_user.present? && current_user.user_type == "admin" %>
           <%= render "header/header_admin" %>

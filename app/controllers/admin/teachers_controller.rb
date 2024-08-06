@@ -1,5 +1,5 @@
 class Admin::TeachersController < ApplicationController
-  #protect_from_forgery except: :sort
+  before_action :authenticate_user
   def index
     @page = (params[:page] || 1).to_i
     @page = @page<1? 1 : @page
