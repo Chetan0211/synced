@@ -41,6 +41,8 @@ class User < ApplicationRecord
   }
 
   belongs_to :administration
+  has_many :chats, class_name: "Chat", foreign_key: "from_id"
+  has_many :group_users
 
   scope :teachers, ->(user) { where(administration_id: user.administration_id, user_type: "teacher") }
   scope :students, ->(user) { where(administration_id: user.administration_id, user_type: "student") }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_04_055707) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_06_071213) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -23,6 +23,37 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_04_055707) do
     t.datetime "updated_at", null: false
     t.integer "status", default: 0, null: false
     t.index ["status"], name: "index_administrations_on_status"
+  end
+
+  create_table "chats", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "from_id", null: false
+    t.uuid "to_group_id", null: false
+    t.text "message", null: false
+    t.uuid "administration_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["administration_id"], name: "index_chats_on_administration_id"
+    t.index ["from_id"], name: "index_chats_on_from_id"
+    t.index ["to_group_id"], name: "index_chats_on_to_group_id"
+  end
+
+  create_table "group_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "group_id", null: false
+    t.uuid "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "last_chat_seen_id"
+    t.index ["group_id"], name: "index_group_users_on_group_id"
+    t.index ["last_chat_seen_id"], name: "index_group_users_on_last_chat_seen_id"
+    t.index ["user_id"], name: "index_group_users_on_user_id"
+  end
+
+  create_table "groups", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.uuid "administration_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["administration_id"], name: "index_groups_on_administration_id"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -55,5 +86,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_04_055707) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "chats", "administrations"
+  add_foreign_key "chats", "groups", column: "to_group_id"
+  add_foreign_key "chats", "users", column: "from_id"
+  add_foreign_key "group_users", "chats", column: "last_chat_seen_id"
+  add_foreign_key "group_users", "groups"
+  add_foreign_key "group_users", "users"
+  add_foreign_key "groups", "administrations"
   add_foreign_key "users", "administrations"
 end
