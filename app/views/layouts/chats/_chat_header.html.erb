@@ -1,0 +1,16 @@
+<header class="flex px-4 h-16 border-b-2 border-gray-200 shadow-sm items-center justify-between sticky top-0 z-2">
+  <div class="flex">
+    <div class="flex w-12 h-12 border-2 border-primary-color-300 justify-center items-center rounded-full">
+      <i class="fas fa-users text-primary-color-default"></i>
+    </div>
+    <div class="h-full ml-2 flex flex-col justify-center">
+      <% if @group.multiple_users %>
+        <p class="m-0 font-bold w-max text-base"><%= @group.name %></p>
+      <% else %>
+        <p class="m-0 font-bold w-max text-base"><%= "#{@user.first_name} #{@user.last_name}" %></p>
+      <% end %>
+      <p class="m-0 w-max font-thin text-xs">last seen 12/12/2024</p>
+    </div>
+  </div>
+  <i class="fa-solid fa-ellipsis-vertical"></i>
+</header>

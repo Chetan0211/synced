@@ -23,6 +23,13 @@
     transform: scale(0.95);
     transition: opacity 0.075s ease-in, transform 0.075s ease-in;
   }
+  .triangle-right {
+    width: 0;
+    height: 0;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    border-left-width: 12px; /* Change the color as needed */
+  }
 }
 
 

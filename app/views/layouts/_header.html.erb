@@ -1,0 +1,29 @@
+<header class="flex bg-white px-4 h-16 border-b-2 border-gray-200 shadow-sm items-center sticky top-0 z-100">
+  <%= link_to image_tag("logo.png", alt: "Company Logo", class: "flex h-14 w-auto"), @logo_redirect.call(), class: "flex h-14 w-auto" %>
+  <div class="flex-auto items-end space-x-1 ml-10">
+    <% if current_user.present? && current_user.user_type == "admin" %>
+      <%= render "header/header_admin" %>
+    <% elsif current_user.present? && current_user.user_type == "teacher" %>
+      <%= render "header/header_teacher" %>
+    <% elsif current_user.present? && current_user.user_type == "student" %>
+      <%= render "header/header_student" %>
+    <% else %>
+      <%= render "header/header_general" %>
+    <% end %>
+  </div>
+  <% unless session[:session_token].present? %>
+    <div class="flex right-10">
+      <%= link_to "Sign up", new_user_path, class: "text-sm text-decoration-none justify-center py-2 px-4 h-10 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-color-default hover:bg-primary-color-400" %>
+      <%= link_to "Log in", new_session_path, class: "text-sm text-decoration-none justify-center py-2 px-4 h-10 border-1 ml-5 border-primary-color-default rounded-md shadow-sm text-sm font-medium text-primary-color-default bg-white hover:border-primary-color-400 hover:text-primary-color-400" %>
+    </div>
+  <% else %>
+    <div class="flex right-10 align-items-center">
+      <%= link_to "Log out", session_log_out_path, class: "flex text-sm text-decoration-none justify-center py-2 px-4 h-10 border-1 border-primary-color-default rounded-md shadow-sm text-sm font-medium text-primary-color-default bg-white hover:border-primary-color-400 hover:text-primary-color-400" %>
+      <%= link_to root_path, class:"ml-3" do %>
+        <div  id="user-avatar" class="border-primary-color-default border-2 rounded-full h-8 w-8 flex items-center justify-center">
+          <i class="fa-regular fa-user text-primary-color-default"></i>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</header>

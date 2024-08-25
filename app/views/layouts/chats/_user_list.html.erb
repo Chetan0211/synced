@@ -1,0 +1,16 @@
+<div class ="flex w-full items-center">
+  <div class="flex w-12 h-10 border-2 border-primary-color-300 justify-center items-center rounded-full">
+    <i class="fas fa-users w-5 h-5 text-primary-color-default"></i>
+  </div>
+  <div class="h-full w-full ml-2 flex flex-col justify-center overflow-hidden">
+    <div class="flex items-center justify-between w-full">
+      <% if user.group.multiple_users %>
+        <p class="m-0 font-bold w-max text-base"><%= user.group.name %></p>
+      <% else %>
+        <p class="m-0 font-bold w-max text-base"><%= "#{user.user.first_name} #{user.user.last_name}" %></p>
+      <% end %>
+      <p class="m-0 font-thin text-xs">12/12/2024</p>
+    </div>
+    <p class="m-0 w-max font-light text-sm truncate"><%= @user_list[0].group.chats.order(:created_at).last.message %> </p>
+  </div>
+</div>

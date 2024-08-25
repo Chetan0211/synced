@@ -1,0 +1,12 @@
+<footer class="flex px-4 h-16 border-t-2 border-gray-200 shadow-sm items-center justify-between sticky top-100 z-2">
+  <i class="fa-solid fa-paperclip mr-2 text-lg"></i>
+  <%= form_with url: @message_path.call(), method: :post, class:"w-full" do |form| %>
+    <div class= "flex py-2 w-full">
+      <%= form.hidden_field :group_id, value: @group.id %>
+      <%= form.text_field :message, class: "w-full border border-gray-300 rounded-l-md", placeholder: "Enter group name" %>
+      <%=  form.button type: "submit", class: "bg-primary-color-default py-1 px-3 text-white rounded-r-md" do %>
+        <i class="fa-solid fa-paper-plane"></i>
+      <% end %>
+    </div>
+  <% end %>
+</footer>

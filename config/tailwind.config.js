@@ -18,6 +18,7 @@ module.exports = {
       height: {
         '80vh': '80vh',
         '100vh': '100vh',
+        'fullscreen':'calc(100vh - 4rem)'
       },
       width: {
         '100vh': '100vh' 

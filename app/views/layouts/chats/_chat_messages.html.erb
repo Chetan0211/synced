@@ -1,0 +1,25 @@
+<div class="flex-1 p-4 overflow-y-auto">
+  <% @chats.each do |chat| %>
+    <% if chat.from_id == current_user.id %>
+      <div class="flex items-end justify-end mb-4">
+        <div class="bg-gray-300 text-gray-800 p-3 rounded-l-lg rounded-tr-lg max-w-xs">
+          <p class="text-base m-0"><%= chat.message %></p>
+          <p class="m-0 w-full font-thin text-right text-xs"><%= chat.created_at %></p>
+        </div>
+        <div class="triangle-right border-l-gray-300"></div>
+      </div>
+    <% else %>
+      <div class="flex items-end mb-4">
+        <div class="flex w-6 h-6 border-2 border-gray-300 bg-gray-300 justify-center items-center rounded-full">
+          <i class="fas fa-users text-white"></i>
+        </div>
+        <div class="triangle-right rotate-180 border-l-primary-color-300"></div>
+        <div class="bg-primary-color-300 text-white p-3 rounded-r-lg rounded-tl-lg max-w-xs">
+          <p class="m-0 font-extrabold w-max text-sm">Name</p>
+          <p class="text-base m-0"><%= chat.message %></p>
+          <p class="m-0 w-max font-thin text-xs"><%= chat.created_at %></p>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

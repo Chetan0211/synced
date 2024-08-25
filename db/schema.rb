@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_06_071213) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_11_071808) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -53,6 +53,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_06_071213) do
     t.uuid "administration_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "multiple_users", default: false
     t.index ["administration_id"], name: "index_groups_on_administration_id"
   end
 
